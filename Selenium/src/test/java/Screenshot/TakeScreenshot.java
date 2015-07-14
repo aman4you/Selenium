@@ -1,3 +1,21 @@
+/*
+ * Single Structure -
+ *
+ * |--Date
+ *    |--Filename1 In Excel
+ *       |--Screenshot of All Browser of Filename1
+ *
+ * Multiple Structure -
+ *
+ * |--Date
+ *    |--Browser1
+ *       |--Filename1 In Excel
+ *          |--Screenshot of Browser1 of Filename1
+ *    |--Browser2
+ *       |--Filename2 In Excel
+ *          |--Screenshot of Browser2 of Filename2
+ */
+
 package Screenshot;
 
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
@@ -19,7 +37,7 @@ import java.io.IOException;
  */
 public class TakeScreenshot {
     ScreenshotFunctions func;
-    String Structure = "Single";
+    String Structure = "Multiple";
     String Browser = "Firefox";
     String ScreenshotThrough = "Stack";
     String ReadTitleAndUrlFrom = "Excel";

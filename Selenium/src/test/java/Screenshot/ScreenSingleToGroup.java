@@ -1,3 +1,10 @@
+/*
+ * Group Structure -
+ *
+ * |--Date
+ *    |--Screenshot of All Browser of All Filenames
+ */
+
 package Screenshot;
 
 import java.io.File;
@@ -12,7 +19,7 @@ import java.nio.file.StandardCopyOption;
  */
 public class ScreenSingleToGroup {
     public static void main(String arg[]) throws IOException {
-        String Path = "C:\\Users\\aman\\Downloads\\TestingFiles\\Screenshots\\Extra2\\";
+        String Path = "C:\\Users\\aman\\Downloads\\TestingFiles\\Screenshots\\HCL\\";
         String SiteLevel = "9JulyStack_10JulyStack";
 
         File Folder = new File(Path + SiteLevel);

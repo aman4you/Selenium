@@ -205,7 +205,7 @@ public class ScreenshotFunctions {
         // Loop will continue till the download process of files complete.
         for (; ;) {
             // Wait for Screenshot to download.
-            Thread.sleep(20000);
+            Thread.sleep(30000);
 
             // List files that have extension “.png” and “.jpg”.
             String FilterWildcards[] = {"*.jpg", "*.png"};
@@ -313,21 +313,35 @@ public class ScreenshotFunctions {
             Path Original = Paths.get(BasePath + ListOfFiles[i].getName());
 
             // Create Directory according to structure.
-            if (Structure == "Group") {
-                Filename = ListOfFiles[i].getName();
-                String FileWithoutExtension = FilenameUtils.removeExtension(Filename);
+            if (Structure == "Single") {
+                File Dir2 = new File(BasePath + Path + "\\" + Filename);
+                if (!Dir2.exists()) {
+                    Dir2.mkdir();
+                }
+
+                Path Destination = Paths.get(BasePath + Path + "\\" + Filename + "\\" + ListOfFiles[i].getName());
+                // To move file from one directory to another and if same name file exist in directory than it will replace.
+                Files.move(Original, Destination, StandardCopyOption.REPLACE_EXISTING);
+            } else if (Structure == "Multiple") {
+                String CompleteFilename = ListOfFiles[i].getName();
+                String FileWithoutExtension = FilenameUtils.removeExtension(CompleteFilename);
                 String[] SplitFilename = FileWithoutExtension.split(SiteLevel + "-");
-                Filename = SplitFilename[1];
-            }
+                String OS_Browser = SplitFilename[1];
 
-            File Dir2 = new File(BasePath + Path + "\\" + Filename);
-            if (!Dir2.exists()) {
-                Dir2.mkdir();
-            }
+                File Dir2 = new File(BasePath + Path + "\\" + OS_Browser);
+                if (!Dir2.exists()) {
+                    Dir2.mkdir();
+                }
 
-            Path Destination = Paths.get(BasePath + Path + "\\" + Filename + "\\" + ListOfFiles[i].getName());
-            // To move file from one directory to another and if same name file exist in directory than it will replace.
-            Files.move(Original, Destination, StandardCopyOption.REPLACE_EXISTING);
+                File Dir3 = new File(BasePath + Path + "\\" + OS_Browser + "\\" + Filename);
+                if (!Dir3.exists()) {
+                    Dir3.mkdir();
+                }
+
+                Path Destination = Paths.get(BasePath + Path + "\\" + OS_Browser + "\\" + Filename + "\\" + ListOfFiles[i].getName());
+                // To move file from one directory to another and if same name file exist in directory than it will replace.
+                Files.move(Original, Destination, StandardCopyOption.REPLACE_EXISTING);
+            }
         }
     }
 
@@ -338,7 +352,7 @@ public class ScreenshotFunctions {
     }
 
     // To merge two folder into new folder, both folder should have same number of folders with same name.
-    public void MergeFolders(String SiteLevel1, String SiteLevel2, String ScreenshotThrough, String Path) throws IOException {
+    public void MergeFolders(String SiteLevel1, String SiteLevel2, String ScreenshotThrough, String Path, String Structure) throws IOException {
         // Create folder for both site level
         File ScreenshotComparisionDirectory = new File(BasePath + Path + SiteLevel1 + ScreenshotThrough + "_" + SiteLevel2 + ScreenshotThrough);
         ScreenshotComparisionDirectory.mkdir();
