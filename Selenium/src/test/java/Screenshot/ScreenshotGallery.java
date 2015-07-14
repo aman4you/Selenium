@@ -7,7 +7,7 @@ import java.io.IOException;
  */
 public class ScreenshotGallery {
     public static void main(String[] args) throws IOException {
-        String Path = "TestingFiles\\Screenshots\\Extra2\\9JulyStack_10JulyStack";
+        String Path = "TestingFiles\\Screenshots\\HCL\\14JulyStack_15JulyStack";
 
         ScreenshotFunctions func = new ScreenshotFunctions();
         func.RenameFilesAfterScreenshotComparision(Path);

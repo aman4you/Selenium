@@ -8,15 +8,15 @@ import java.io.IOException;
 public class ScreenshotFoldersMerge {
     public static void main(String[] args) throws IOException {
         // Give sitelevel without stack or driver
-        String SiteLevel1 = "9July";
-        String SiteLevel2 = "10July";
+        String SiteLevel1 = "14July";
+        String SiteLevel2 = "15July";
         String ScreenshotThrough = "Stack";
-        String Site = "Extra2";
+        String Site = "HCL";
         String Path = "TestingFiles\\Screenshots\\" + Site + "\\";
 
         ScreenshotFunctions func = new ScreenshotFunctions();
         func.MergeFolders(SiteLevel1, SiteLevel2, ScreenshotThrough, Path);
-//        func.ChangeWidth(SiteLevel1, SiteLevel2, ScreenshotThrough, Site, Path);
+//        func.ChangeWidth(SiteLevel1, SiteLevel2, ScreenshotThrough, Path);
 
         /**
          * After merge the screenshots of two sitelevel, we will do screenshot comparision.

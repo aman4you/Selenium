@@ -26,14 +26,15 @@ import java.util.concurrent.TimeUnit;
  */
 public class ScreenshotFunctions {
     private String Password = "password";
-    private String Username = "aman98@gmail.com";
+    private String Username = "aman64@gmail.com";
     public String BasePath = "C:\\Users\\aman\\Downloads\\";
     private WebDriver driver;
     private WebDriverWait wait;
-    private int timeoutOfOneElement = 60;
+    private int timeoutOfOneElement = 300;
     private int timeoutOFAllElement = 20;
     private String ChromeDriverPath = "C:\\Users\\aman\\Downloads\\Programs\\Selenium\\chromedriver.exe";
     private String IEDriverPath = "C:\\Users\\aman\\Downloads\\Programs\\Selenium\\IEDriverServer.exe";
+    private int Timeout = 0;
 
     // To run test on Chrome browser
     public void TestOnChrome() throws IOException {
@@ -152,9 +153,9 @@ public class ScreenshotFunctions {
     public void OnBrowsersByBrowserStack(String[][] FilenameUrl, String SiteLevel, String Path, int NumberOFSelection, String Structure, String[][] Selections) throws IOException, InterruptedException {
         String Filename = null;
         String Url = null;
-
         String GetFilenameUrl[] = new String[2];
-        for(int i = 1; i < FilenameUrl.length; i++) {
+
+        for(int i = 2; i < FilenameUrl.length; i++) {
             for(int j = 0; j < 2; j++) {
                 GetFilenameUrl[j]  = FilenameUrl[i][j];
             }
@@ -166,35 +167,8 @@ public class ScreenshotFunctions {
             driver.findElement(By.id("screenshots")).sendKeys(Url);
             driver.findElement(By.id("btnSnapshot")).click();
 
-            // Check Screenshot Process Finish.
-            for (; ;) {
-                try {
-                    // Driver will wait until text 'ZIPPING' not present at element by id 'zipper'.
-                    wait.until(ExpectedConditions.textToBePresentInElementLocated(By.id("zipper"), "ZIPPING"));
-                    break;
-                } catch (Exception e) {
-                    // Stop Screenshot Process
-                    driver.findElement(By.id("spStop")).click();
-
-                    // Click download link to save file.
-                    List<WebElement> DownloadLink = driver.findElements(By.xpath("//a[contains(@class, 'icon-sp-dl')]"));
-                    for (int k = 0; k < DownloadLink.size(); k++) {
-                        DownloadLink.get(k).click();
-                    }
-
-                    if (DownloadLink.size() == 0) {
-                        // Click arrow symbol ^ to click screenshot button .
-                        driver.findElement(By.cssSelector("a.sp-more-arrow.up")).click();
-                        Thread.sleep(4000);
-
-                        // Take Timeout Screenshot
-                        driver.findElement(By.id("btnSnapshot")).click();
-                    } else {
-                        // Rewind Screenshot Process for Timeout.
-                        RewindTimeoutScreenshot(DownloadLink.size(), Selections);
-                    }
-                }
-            }
+            // Driver will wait until text 'ZIPPING' not present at element by id 'zipper'.
+            wait.until(ExpectedConditions.textToBePresentInElementLocated(By.id("zipper"), "ZIPPING"));
 
             // Click download link to save file.
             List<WebElement> DownloadLink = driver.findElements(By.xpath("//a[contains(@class, 'icon-sp-dl')]"));
@@ -203,7 +177,7 @@ public class ScreenshotFunctions {
             }
 
             // Check download process finish.
-            File[] Files = CheckDownloadFinish(NumberOFSelection);
+            File[] Files = CheckDownloadFinish(NumberOFSelection, Selections);
 
             // Rename image files.
             RenameFiles(Filename, Files, SiteLevel);
@@ -211,66 +185,26 @@ public class ScreenshotFunctions {
             // Cut all files and paste into new folder.
             CutPasteFiles(Filename, Path, Structure, SiteLevel);
 
-            // Click arrow symbol ^ to click screenshot button .
-            driver.findElement(By.cssSelector("a.sp-more-arrow.up")).click();
-        }
-    }
-
-    // Download Timeout Screenshot
-    private void RewindTimeoutScreenshot(int DownloadLinkSize, String[][] Selections) throws IOException, InterruptedException {
-        String LiveTestIconLink = null;
-        String[][] GetSelections = new String[DownloadLinkSize][4];
-
-        // Get detail of Screenshot those Process Finish.
-        List<WebElement> LiveTestIcon = driver.findElements(By.cssSelector(".icon-sp-bs"));
-        for (int i = 0; i < LiveTestIcon.size(); i++) {
-            LiveTestIconLink = LiveTestIcon.get(i).getAttribute("href");
-            // OS
-            GetSelections[i][0] = LiveTestIconLink.substring(LiveTestIconLink.indexOf("os=") + 3, LiveTestIconLink.indexOf("&os_version"));
-            // OS Version
-            GetSelections[i][1] = LiveTestIconLink.substring(LiveTestIconLink.indexOf("os_version=") + 11, LiveTestIconLink.indexOf("&browser"));
-            // Browser
-            GetSelections[i][2] = LiveTestIconLink.substring(LiveTestIconLink.indexOf("browser=") + 8, LiveTestIconLink.indexOf("&browser_version"));
-            // Browser Version
-            GetSelections[i][3] = LiveTestIconLink.substring(LiveTestIconLink.indexOf("browser_version=") + 16, LiveTestIconLink.indexOf("&start"));
-        }
-
-        int k = 0;
-        int flag = 0;
-        int RemainingScreenshot = Selections.length - GetSelections.length;
-
-        // List Screenshot those Process not Finish.
-        String[][] TimeoutScreenshot = new String[RemainingScreenshot][4];
-        for (int i = 0; i < Selections.length; i++) {
-            for (int j = 0; j < GetSelections.length; j++) {
-                if (Arrays.equals(GetSelections[j], Selections[i])) {
-                    flag = 1;
-                }
+            // Click arrow symbol ^ to click screenshot button.
+            if (Timeout == 1) {
+                driver.findElement(By.cssSelector("a.sp-more-arrow.up")).click();
+                SetSelectionsOnBrowserStack(Selections);
+                Timeout = 0;
+            } else {
+                driver.findElement(By.cssSelector("a.sp-more-arrow.up")).click();
             }
-            if (flag == 0) {
-                TimeoutScreenshot[k] = Selections[i];
-                k++;
-            }
-            flag = 0;
         }
-
-        // Click arrow symbol ^ to click screenshot button .
-        driver.findElement(By.cssSelector("a.sp-more-arrow.up")).click();
-        Thread.sleep(4000);
-
-        // Select Timeout browsers
-        SetSelectionsOnBrowserStack(TimeoutScreenshot);
-
-        // Take Timeout Screenshot
-        driver.findElement(By.id("btnSnapshot")).click();
     }
 
     // Wait for download completion of screenshots.
-    private File[] CheckDownloadFinish(int NumberOfSelection) throws IOException {
-        int Timer = 0;
+    private File[] CheckDownloadFinish(int NumberOfSelection, String[][] Selections) throws IOException, InterruptedException {
         File[] ListOfFiles;
+
         // Loop will continue till the download process of files complete.
         for (; ;) {
+            // Wait for Screenshot to download.
+            Thread.sleep(40000);
+
             // List only those files that have extension “.png” and “.jpg”.
             FilenameFilter fileNameFilter = new FilenameFilter() {
                 @Override
@@ -296,15 +230,21 @@ public class ScreenshotFunctions {
             // Returns the array of files of particular extensions.
             ListOfFiles = Folder.listFiles(fileNameFilter);
 
-            // If any file have "crdownload" text in name, it means download process not complete.
-            if (ListOfFiles.length == NumberOfSelection) {
-                int Flag = 1;
-                for (int i = 0; i < ListOfFiles.length; i++) {
-                    if (ListOfFiles[i].getName().contains("crdownload"))
-                        Flag = 0;
+            // Check any filename have "crdownload".
+            int Flag = 1;
+            for (int i = 0; i < ListOfFiles.length; i++) {
+                if (ListOfFiles[i].getName().contains("crdownload")) {
+                    Flag = 0;
                 }
-                if (Flag == 1) {
+            }
+
+            // Check all Screenshot download or not.
+            if (Flag == 1) {
+                if (ListOfFiles.length == NumberOfSelection) {
                     break;
+                } else {
+                    Timeout = 1;
+                    TakeTimeoutScreenshot(Selections, ListOfFiles);
                 }
             }
             System.out.println("Waiting");
@@ -312,10 +252,61 @@ public class ScreenshotFunctions {
         return ListOfFiles;
     }
 
+    // Download Timeout Screenshot
+    private void TakeTimeoutScreenshot(String[][] Selections, File[] ListOfFiles) throws IOException, InterruptedException {
+        String[] FileNames = new String[ListOfFiles.length];
+
+        // Get detail of Screenshot those Process Finish.
+        for (int i = 0; i < ListOfFiles.length; i++) {
+            FileNames[i] = FilenameUtils.removeExtension(ListOfFiles[i].getName());
+        }
+
+        int k = 0;
+        int flag = 0;
+        int RemainingScreenshot = Selections.length - FileNames.length;
+
+        // List Screenshot those Process not Finish.
+        String[][] TimeoutScreenshot = new String[RemainingScreenshot][4];
+        for (int i = 0; i < Selections.length; i++) {
+            for (int j = 0; j < FileNames.length; j++) {
+                if (FileNames[j].equals(Selections[i][4])) {
+                    flag = 1;
+                }
+            }
+            if (flag == 0) {
+                TimeoutScreenshot[k] = Selections[i];
+                k++;
+            }
+            flag = 0;
+        }
+
+        // Reload Page
+        driver.navigate().refresh();
+
+        // Click arrow symbol(^) to click screenshot button .
+        driver.findElement(By.cssSelector("a.sp-more-arrow.up")).click();
+        Thread.sleep(4000);
+
+        // Select Timeout browsers
+        SetSelectionsOnBrowserStack(TimeoutScreenshot);
+
+        // Take Timeout Screenshot
+        driver.findElement(By.id("btnSnapshot")).click();
+
+        // Driver will wait until text 'ZIPPING' not present at element by id 'zipper'.
+        wait.until(ExpectedConditions.textToBePresentInElementLocated(By.id("zipper"), "ZIPPING"));
+
+        // Click download link to save file.
+        List<WebElement> DownloadLink = driver.findElements(By.xpath("//a[contains(@class, 'icon-sp-dl')]"));
+        for (int i = 0; i < DownloadLink.size(); i++) {
+            DownloadLink.get(i).click();
+        }
+    }
+
     // Change name of screenshots according to screenshot comparison criteria.
     private void RenameFiles(String Filename, File[] Files, String SiteLevel) throws IOException {
         for (int i = 0 ; i < Files.length ; i++){
-            String FileWithoutExtension = Files[i].getName().substring(0, Files[i].getName().indexOf("."));
+            String FileWithoutExtension = FilenameUtils.removeExtension(Files[i].getName());
             String[] SplitFilename = FileWithoutExtension.split("_");
             String[] WindowBrowserVersion = new String[3];
             for (int j = 0; j < SplitFilename.length ; j++) {
@@ -323,10 +314,10 @@ public class ScreenshotFunctions {
             }
 
             // To get the width of image.
-//            BufferedImage readImage = ImageIO.read(Files[i]);
-//            int Width = readImage.getWidth();
+            BufferedImage readImage = ImageIO.read(Files[i]);
+            int Width = readImage.getWidth();
 
-            Files[i].renameTo(new File(BasePath + Filename + "_" + SiteLevel + "-" + WindowBrowserVersion[0] + "-" + WindowBrowserVersion[1] + "-" + WindowBrowserVersion[2] + ".png"));
+            Files[i].renameTo(new File(BasePath + Width + "_" + Filename + "_" + SiteLevel + "-" + WindowBrowserVersion[0] + "-" + WindowBrowserVersion[1] + "-" + WindowBrowserVersion[2] + ".png"));
         }
     }
 
@@ -364,7 +355,7 @@ public class ScreenshotFunctions {
             // Create Directory according to structure.
             if (Structure == "Group") {
                 Filename = ListOfFiles[i].getName();
-                String FileWithoutExtension = Filename.substring(0, Filename.indexOf("."));
+                String FileWithoutExtension = FilenameUtils.removeExtension(Filename);
                 String[] SplitFilename = FileWithoutExtension.split(SiteLevel + "-");
                 Filename = SplitFilename[1];
             }
@@ -437,12 +428,12 @@ public class ScreenshotFunctions {
      * In gallery, images are display in group of two-two according to width in image name. If four or more images have equal width
      * in their name than they will not display properly. So, it required to change the width in image name.
      */
-    public void ChangeWidth(String SiteLevel1, String SiteLevel2, String ScreenshotThrough, String Site, String path) throws IOException {
-        File Folder = new File(BasePath + path + Site + "_" + SiteLevel1 + ScreenshotThrough + "_" + SiteLevel2 + ScreenshotThrough);
+    public void ChangeWidth(String SiteLevel1, String SiteLevel2, String ScreenshotThrough, String path) throws IOException {
+        File Folder = new File(BasePath + path + SiteLevel1 + ScreenshotThrough + "_" + SiteLevel2 + ScreenshotThrough);
         File[] FolderFolders = Folder.listFiles();
 
         for (int i = 0 ; i < FolderFolders.length ; i++) {
-            File FolderFolder = new File(BasePath + path + Site + "_" + SiteLevel1 + ScreenshotThrough + "_" + SiteLevel2 + ScreenshotThrough + "\\" + FolderFolders[i].getName());
+            File FolderFolder = new File(BasePath + path + SiteLevel1 + ScreenshotThrough + "_" + SiteLevel2 + ScreenshotThrough + "\\" + FolderFolders[i].getName());
             File[] FolderFolderFiles = FolderFolder.listFiles();
 
             // Store unique width
@@ -495,7 +486,7 @@ public class ScreenshotFunctions {
                             int NewWidth = Integer.parseInt(RepeatedWidth.get(k)) + IncreaseWidth;
                             String RenameFile = FolderFolderFiles[m].getName().replace(RepeatedWidth.get(k), String.valueOf(NewWidth));
                             // Rename filename with new width
-                            FolderFolderFiles[m].renameTo(new File(BasePath + path + Site + "_" + SiteLevel1 + ScreenshotThrough + "_" + SiteLevel2 + ScreenshotThrough + "\\" + FolderFolders[i].getName() + "\\" + RenameFile));
+                            FolderFolderFiles[m].renameTo(new File(BasePath + path + SiteLevel1 + ScreenshotThrough + "_" + SiteLevel2 + ScreenshotThrough + "\\" + FolderFolders[i].getName() + "\\" + RenameFile));
                         }
                     }
                     IncreaseWidth++;
@@ -525,16 +516,16 @@ public class ScreenshotFunctions {
 
                 if(FileNameWithOutExt.contains("diff")) {
                     // AboutUs-AboutHclTechnologies_8July-win7-firefox-diff.png
-                    String S1 = List_Files[j].getName().substring(StringUtils.ordinalIndexOf(List_Files[j].getName(), "_", 1) + 1);
+                    String S1 = List_Files[j].getName().substring(StringUtils.ordinalIndexOf(List_Files[j].getName(), "_", 2) + 1);
                     // 8July-win7-firefox-diff.png
-                    String S2 = S1.substring(0, S1.indexOf("."));
+                    String S2 = FilenameUtils.removeExtension(S1);
                     // 8July-win7-firefox-diff
                     String FileNameWithOutSpace = FileNameWithOutExt.replace(" ", "").replace("&", "and").replace(S2, "diff");
                     Old_Name.renameTo(new File(BasePath + Path + "\\" + List_Folders[i].getName() + "\\" + FileNameWithOutSpace + ".png"));
                 }
                 if(FileNameWithOutExt.contains("data")) {
-                    String S1 = List_Files[j].getName().substring(StringUtils.ordinalIndexOf(List_Files[j].getName(), "_", 1) + 1);
-                    String S2 = S1.substring(0, S1.indexOf("."));
+                    String S1 = List_Files[j].getName().substring(StringUtils.ordinalIndexOf(List_Files[j].getName(), "_", 2) + 1);
+                    String S2 = FilenameUtils.removeExtension(S1);
                     String FileNameWithOutSpace = FileNameWithOutExt.replace(" ", "").replace("&", "and").replace(S2, "data");
                     Old_Name.renameTo(new File(BasePath + Path + "\\" + List_Folders[i].getName() + "\\" + FileNameWithOutSpace + ".txt"));
                 }
