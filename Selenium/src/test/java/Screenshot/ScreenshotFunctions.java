@@ -2,6 +2,7 @@ package Screenshot;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
+import org.apache.commons.io.filefilter.WildcardFileFilter;
 import org.apache.commons.lang3.ArrayUtils;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -26,7 +27,7 @@ import java.util.concurrent.TimeUnit;
  */
 public class ScreenshotFunctions {
     private String Password = "password";
-    private String Username = "aman64@gmail.com";
+    private String Username = "aman59@gmail.com";
     public String BasePath = "C:\\Users\\aman\\Downloads\\";
     private WebDriver driver;
     private WebDriverWait wait;
@@ -198,58 +199,34 @@ public class ScreenshotFunctions {
 
     // Wait for download completion of screenshots.
     private File[] CheckDownloadFinish(int NumberOfSelection, String[][] Selections) throws IOException, InterruptedException {
-        File[] ListOfFiles;
+        File[] ImageFiles;
 
+        File Dir = new File(BasePath);
         // Loop will continue till the download process of files complete.
         for (; ;) {
             // Wait for Screenshot to download.
-            Thread.sleep(40000);
+            Thread.sleep(20000);
 
-            // List only those files that have extension “.png” and “.jpg”.
-            FilenameFilter fileNameFilter = new FilenameFilter() {
-                @Override
-                public boolean accept(File dir, String name) {
-                    if (name.lastIndexOf('.') > 0) {
-                        // get last index for '.' char
-                        int lastIndex = name.lastIndexOf('.');
-                        // get extension
-                        String str = name.substring(lastIndex);
-                        // match path name extension
-                        if (str.equals(".jpg")) {
-                            return true;
-                        }
-                        if (str.equals(".png")) {
-                            return true;
-                        }
-                    }
-                    return false;
-                }
-            };
-            // File object representing the directory on the disk.
-            File Folder = new File(BasePath);
-            // Returns the array of files of particular extensions.
-            ListOfFiles = Folder.listFiles(fileNameFilter);
-
-            // Check any filename have "crdownload".
-            int Flag = 1;
-            for (int i = 0; i < ListOfFiles.length; i++) {
-                if (ListOfFiles[i].getName().contains("crdownload")) {
-                    Flag = 0;
-                }
-            }
+            // List files that have extension “.png” and “.jpg”.
+            String FilterWildcards[] = {"*.jpg", "*.png"};
+            FileFilter ImageFilter = new WildcardFileFilter(FilterWildcards);
+            ImageFiles = Dir.listFiles(ImageFilter);
 
             // Check all Screenshot download or not.
-            if (Flag == 1) {
-                if (ListOfFiles.length == NumberOfSelection) {
-                    break;
-                } else {
+            if (ImageFiles.length == NumberOfSelection) {
+                break;
+            } else {
+                // List files that have extension “.crdownload”.
+                FileFilter CrdownloadFilter = new WildcardFileFilter("*.crdownload");
+                File[] CrdownloadFiles = Dir.listFiles(CrdownloadFilter);
+                if (CrdownloadFiles.length == 0) {
                     Timeout = 1;
-                    TakeTimeoutScreenshot(Selections, ListOfFiles);
+                    TakeTimeoutScreenshot(Selections, ImageFiles);
                 }
             }
             System.out.println("Waiting");
         }
-        return ListOfFiles;
+        return ImageFiles;
     }
 
     // Download Timeout Screenshot
@@ -323,30 +300,13 @@ public class ScreenshotFunctions {
 
     // Cut the screenshots files and paste into created directory or existing directory and replace the existing screenshots.
     private void CutPasteFiles(String Filename, String Path, String Structure, String SiteLevel) throws IOException, InterruptedException {
-        // List only those renamed files that have extension “.png” and “.jpg”.
-        FilenameFilter fileNameFilter = new FilenameFilter() {
-            @Override
-            public boolean accept(File dir, String name) {
-                if(name.lastIndexOf('.')>0) {
-                    // get last index for '.' char
-                    int lastIndex = name.lastIndexOf('.');
-                    // get extension
-                    String str = name.substring(lastIndex);
-                    // match path name extension
-                    if(str.equals(".jpg")) {
-                        return true;
-                    }
-                    if(str.equals(".png")) {
-                        return true;
-                    }
-                }
-                return false;
-            }
-        };
-        // File object representing the directory on the disk.
-        File Folder = new File(BasePath);
-        // Returns the array of files of particular extensions.
-        File[] ListOfFiles = Folder.listFiles(fileNameFilter);
+        // List files that have extension “.png” and “.jpg”.
+        File[] ListOfFiles;
+        File Dir1 = new File(BasePath);
+        String FilterWildcards[] = {"*.jpg", "*.png"};
+
+        FileFilter ImageFilter = new WildcardFileFilter(FilterWildcards);
+        ListOfFiles = Dir1.listFiles(ImageFilter);
 
         for (int i = 0 ; i < ListOfFiles.length ; i++){
             // To construct the path of file.
@@ -360,9 +320,9 @@ public class ScreenshotFunctions {
                 Filename = SplitFilename[1];
             }
 
-            File Dir = new File(BasePath + Path + "\\" + Filename);
-            if (!Dir.exists()) {
-                Dir.mkdir();
+            File Dir2 = new File(BasePath + Path + "\\" + Filename);
+            if (!Dir2.exists()) {
+                Dir2.mkdir();
             }
 
             Path Destination = Paths.get(BasePath + Path + "\\" + Filename + "\\" + ListOfFiles[i].getName());
@@ -436,9 +396,12 @@ public class ScreenshotFunctions {
             File FolderFolder = new File(BasePath + path + SiteLevel1 + ScreenshotThrough + "_" + SiteLevel2 + ScreenshotThrough + "\\" + FolderFolders[i].getName());
             File[] FolderFolderFiles = FolderFolder.listFiles();
 
+            // Reduce folder length because unknown file "thumbs.db" created.
+            int TotalFiles = FolderFolderFiles.length - 1;
+
             // Store unique width
             TreeSet<String> UniqueWidth = new TreeSet<String>();
-            for (int j = 0 ; j < FolderFolderFiles.length ; j++) {
+            for (int j = 0 ; j < TotalFiles; j++) {
                 UniqueWidth.add(FolderFolderFiles[j].getName().substring(0, FolderFolderFiles[j].getName().indexOf("_")));
             }
 
@@ -448,7 +411,7 @@ public class ScreenshotFunctions {
             while (IterateWidth.hasNext()) {
                 int Count = 0;
                 String Width = IterateWidth.next();
-                for (int k = 0 ; k < FolderFolderFiles.length ; k++) {
+                for (int k = 0 ; k < TotalFiles ; k++) {
                     if (FolderFolderFiles[k].getName().contains(Width)) {
                         Count++;
                     }
@@ -463,10 +426,10 @@ public class ScreenshotFunctions {
             TreeSet<String> UniqueBrowserOfUniqueWidth = new TreeSet<String>();
             for (int k = 0; k < RepeatedWidth.size(); k++) {
                 // Store unique browser
-                for (int l = 0 ; l < FolderFolderFiles.length ; l++) {
+                for (int l = 0 ; l < TotalFiles ; l++) {
                     if (FolderFolderFiles[l].getName().contains(RepeatedWidth.get(k))) {
                         String S1 = FolderFolderFiles[l].getName().substring(StringUtils.ordinalIndexOf(FolderFolderFiles[l].getName(), "_", 2) + 1);
-                        String S2 = S1.substring(0, S1.indexOf("."));
+                        String S2 = FilenameUtils.removeExtension(S1);
                         String RemoveSiteLevel = new String();
                         if (S2.contains(SiteLevel1)) {
                             RemoveSiteLevel = S2.replace(SiteLevel1, "");
@@ -481,7 +444,7 @@ public class ScreenshotFunctions {
                 Iterator<String> IterateBrowser = UniqueBrowserOfUniqueWidth.iterator();
                 while (IterateBrowser.hasNext()) {
                     String Browser = IterateBrowser.next();
-                    for (int m = 0 ; m < FolderFolderFiles.length ; m++) {
+                    for (int m = 0 ; m < TotalFiles ; m++) {
                         if (FolderFolderFiles[m].getName().contains(Browser)) {
                             int NewWidth = Integer.parseInt(RepeatedWidth.get(k)) + IncreaseWidth;
                             String RenameFile = FolderFolderFiles[m].getName().replace(RepeatedWidth.get(k), String.valueOf(NewWidth));
