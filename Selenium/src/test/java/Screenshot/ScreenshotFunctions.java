@@ -200,8 +200,8 @@ public class ScreenshotFunctions {
     // Wait for download completion of screenshots.
     private File[] CheckDownloadFinish(int NumberOfSelection, String[][] Selections) throws IOException, InterruptedException {
         File[] ImageFiles;
-
         File Dir = new File(BasePath);
+
         // Loop will continue till the download process of files complete.
         for (; ;) {
             // Wait for Screenshot to download.

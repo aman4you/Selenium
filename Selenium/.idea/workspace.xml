@@ -3,9 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="2e9ce220-bd5f-4d31-9bd9-5b85947eec11" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/java/Screenshot/ScreenshotFunctions.java" afterPath="$PROJECT_DIR$/src/test/java/Screenshot/ScreenshotFunctions.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/java/Screenshot/TakeScreenshot.java" afterPath="$PROJECT_DIR$/src/test/java/Screenshot/TakeScreenshot.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/java/Screenshot/TakeScreenshot.xml" afterPath="$PROJECT_DIR$/src/test/java/Screenshot/TakeScreenshot.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="Selenium.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -31,31 +28,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="TakeScreenshot.xml" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/test/java/Screenshot/TakeScreenshot.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="0" column="97" selection-start-line="0" selection-start-column="97" selection-end-line="0" selection-end-column="97" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="TakeScreenshot.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/test/java/Screenshot/TakeScreenshot.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="16" column="3" selection-start-line="16" selection-start-column="3" selection-end-line="16" selection-end-column="3" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ScreenshotFunctions.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="ScreenshotFunctions.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/test/java/Screenshot/ScreenshotFunctions.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="209" column="0" selection-start-line="209" selection-start-column="0" selection-end-line="209" selection-end-column="0" />
+              <caret line="0" column="19" selection-start-line="0" selection-start-column="19" selection-end-line="0" selection-end-column="19" />
               <folding>
                 <element signature="e#19777#19785#0" expanded="true" />
                 <element signature="e#20080#20088#0" expanded="true" />
@@ -1035,15 +1012,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/Screenshot/ScreenshotFunctions.java">
+    <entry file="file://$PROJECT_DIR$/src/test/java/Screenshot/TakeScreenshot.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="209" column="0" selection-start-line="209" selection-start-column="0" selection-end-line="209" selection-end-column="0" />
-          <folding>
-            <element signature="e#19777#19785#0" expanded="true" />
-            <element signature="e#20080#20088#0" expanded="true" />
-            <element signature="e#20761#20769#0" expanded="true" />
-          </folding>
+          <caret line="0" column="97" selection-start-line="0" selection-start-column="97" selection-end-line="0" selection-end-column="97" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1055,11 +1028,15 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/Screenshot/TakeScreenshot.xml">
+    <entry file="file://$PROJECT_DIR$/src/test/java/Screenshot/ScreenshotFunctions.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="97" selection-start-line="0" selection-start-column="97" selection-end-line="0" selection-end-column="97" />
-          <folding />
+          <caret line="0" column="19" selection-start-line="0" selection-start-column="19" selection-end-line="0" selection-end-column="19" />
+          <folding>
+            <element signature="e#19777#19785#0" expanded="true" />
+            <element signature="e#20080#20088#0" expanded="true" />
+            <element signature="e#20761#20769#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
