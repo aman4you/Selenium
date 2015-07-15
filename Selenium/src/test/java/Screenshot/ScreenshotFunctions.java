@@ -189,6 +189,7 @@ public class ScreenshotFunctions {
             // Click arrow symbol ^ to click screenshot button.
             if (Timeout == 1) {
                 driver.findElement(By.cssSelector("a.sp-more-arrow.up")).click();
+                Thread.sleep(4000);
                 SetSelectionsOnBrowserStack(Selections);
                 Timeout = 0;
             } else {
