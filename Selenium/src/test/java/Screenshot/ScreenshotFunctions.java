@@ -26,8 +26,8 @@ import java.util.concurrent.TimeUnit;
  * Created by om on 1/7/2015.
  */
 public class ScreenshotFunctions {
-    private String Password = "password";
-    private String Username = "aman59@gmail.com";
+    private String Password = "myfriends";
+    private String Username = "mukesh.agarwal@innoraft.com";
     public String BasePath = "C:\\Users\\aman\\Downloads\\";
     private WebDriver driver;
     private WebDriverWait wait;
@@ -207,23 +207,24 @@ public class ScreenshotFunctions {
             // Wait for Screenshot to download.
             Thread.sleep(30000);
 
-            // List files that have extension “.png” and “.jpg”.
-            String FilterWildcards[] = {"*.jpg", "*.png"};
-            FileFilter ImageFilter = new WildcardFileFilter(FilterWildcards);
-            ImageFiles = Dir.listFiles(ImageFilter);
+            // List files that have extension “.crdownload”.
+            FileFilter CrdownloadFilter = new WildcardFileFilter("*.crdownload");
+            File[] CrdownloadFiles = Dir.listFiles(CrdownloadFilter);
+            if (CrdownloadFiles.length == 0) {
+                // List files that have extension “.png” and “.jpg”.
+                String FilterWildcards[] = {"*.jpg", "*.png"};
+                FileFilter ImageFilter = new WildcardFileFilter(FilterWildcards);
+                ImageFiles = Dir.listFiles(ImageFilter);
 
-            // Check all Screenshot download or not.
-            if (ImageFiles.length == NumberOfSelection) {
-                break;
-            } else {
-                // List files that have extension “.crdownload”.
-                FileFilter CrdownloadFilter = new WildcardFileFilter("*.crdownload");
-                File[] CrdownloadFiles = Dir.listFiles(CrdownloadFilter);
-                if (CrdownloadFiles.length == 0) {
+                // Check all Screenshot download or not.
+                if (ImageFiles.length == NumberOfSelection) {
+                    break;
+                } else {
                     Timeout = 1;
                     TakeTimeoutScreenshot(Selections, ImageFiles);
                 }
             }
+
             System.out.println("Waiting");
         }
         return ImageFiles;

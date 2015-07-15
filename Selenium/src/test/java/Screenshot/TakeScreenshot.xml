@@ -2,7 +2,7 @@
 <suite name="Suite1" parallel="tests" thread-count="1">
     <test name="test1">
         <parameter name="BaseUrl" value="http://www.hcltech.com/"/>
-        <parameter name="SiteLevel" value="16July"/>
+        <parameter name="SiteLevel" value="15July"/>
         <parameter name="ExcelFile" value="urlList.xlsx"/>
         <classes>
             <class name="Screenshot.TakeScreenshot" />

@@ -37,7 +37,7 @@ import java.io.IOException;
  */
 public class TakeScreenshot {
     ScreenshotFunctions func;
-    String Structure = "Multiple";
+    String Structure = "Single";
     String Browser = "Firefox";
     String ScreenshotThrough = "Stack";
     String ReadTitleAndUrlFrom = "Excel";
