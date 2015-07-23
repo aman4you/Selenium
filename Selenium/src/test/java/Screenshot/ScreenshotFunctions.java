@@ -361,41 +361,79 @@ public class ScreenshotFunctions {
 
         File SiteLevel1Folder = new File(BasePath + Path + SiteLevel1 + ScreenshotThrough);
         File SiteLevel2Folder = new File(BasePath + Path + SiteLevel2 + ScreenshotThrough);
-        // List folders of Sitelevel1 folder
-        File[] SiteLevel1FolderFolders = SiteLevel1Folder.listFiles();
-        // List folders of Sitelevel2 folder
-        File[] SiteLevel2FolderFolders = SiteLevel2Folder.listFiles();
 
-        File[] LoopForSiteLevel = null;
-        if (SiteLevel1FolderFolders.length <= SiteLevel2FolderFolders.length) {
-            LoopForSiteLevel = SiteLevel1FolderFolders;
-        } else {
-            LoopForSiteLevel = SiteLevel2FolderFolders;
-        }
+        if (Structure == "Single") {
+            // List folders of Sitelevel1 folder
+            File[] SiteLevel1FolderFolders = SiteLevel1Folder.listFiles();
+            // List folders of Sitelevel2 folder
+            File[] SiteLevel2FolderFolders = SiteLevel2Folder.listFiles();
 
-        for (int i = 0 ; i < LoopForSiteLevel.length ; i++){
-            // Create folder in folder of both site level
-            File ScreenshotDirectory = new File(BasePath + Path + SiteLevel1 + ScreenshotThrough + "_" + SiteLevel2 + ScreenshotThrough + "\\" + LoopForSiteLevel[i].getName());
-            ScreenshotDirectory.mkdir();
+            for (int i = 0 ; i < SiteLevel1FolderFolders.length ; i++){
+                // Create folder in folder of both site level
+                File ScreenshotDirectory = new File(BasePath + Path + SiteLevel1 + ScreenshotThrough + "_" + SiteLevel2 + ScreenshotThrough + "\\" + SiteLevel1FolderFolders[i].getName());
+                ScreenshotDirectory.mkdir();
 
-            // List files of folder in Sitelevel1 folder
-            File[] SiteLevel1FolderFolderFiles = SiteLevel1FolderFolders[i].listFiles();
-            // List files of folder in Sitelevel2 folder
-            File[] SiteLevel2FolderFolderFiles = SiteLevel2FolderFolders[i].listFiles();
+                // List files of folder in Sitelevel1 folder
+                File[] SiteLevel1FolderFolderFiles = SiteLevel1FolderFolders[i].listFiles();
+                // List files of folder in Sitelevel2 folder
+                File[] SiteLevel2FolderFolderFiles = SiteLevel2FolderFolders[i].listFiles();
 
-            for (int j = 0 ; j < SiteLevel1FolderFolderFiles.length ; j++){
-                // To construct the path of file.
-                Path Original = Paths.get(BasePath + Path + SiteLevel1 + ScreenshotThrough + "\\" + SiteLevel1FolderFolders[i].getName() + "\\" + SiteLevel1FolderFolderFiles[j].getName());
-                Path Destination = Paths.get(BasePath + Path + SiteLevel1 + ScreenshotThrough + "_" + SiteLevel2 + ScreenshotThrough + "\\" + SiteLevel1FolderFolders[i].getName() + "\\" + SiteLevel1FolderFolderFiles[j].getName());
-                // To move file from one directory to another and if same name file exist in directory than it will replace.
-                Files.copy(Original, Destination, StandardCopyOption.REPLACE_EXISTING);
+                for (int j = 0 ; j < SiteLevel1FolderFolderFiles.length ; j++){
+                    // To construct the path of file.
+                    Path Original = Paths.get(BasePath + Path + SiteLevel1 + ScreenshotThrough + "\\" + SiteLevel1FolderFolders[i].getName() + "\\" + SiteLevel1FolderFolderFiles[j].getName());
+                    Path Destination = Paths.get(BasePath + Path + SiteLevel1 + ScreenshotThrough + "_" + SiteLevel2 + ScreenshotThrough + "\\" + SiteLevel1FolderFolders[i].getName() + "\\" + SiteLevel1FolderFolderFiles[j].getName());
+                    // To move file from one directory to another and if same name file exist in directory than it will replace.
+                    Files.copy(Original, Destination, StandardCopyOption.REPLACE_EXISTING);
+                }
+                for (int k = 0 ; k < SiteLevel2FolderFolderFiles.length ; k++){
+                    // To construct the path of file.
+                    Path Original = Paths.get(BasePath + Path + SiteLevel2 + ScreenshotThrough + "\\" + SiteLevel2FolderFolders[i].getName() + "\\" + SiteLevel2FolderFolderFiles[k].getName());
+                    Path Destination = Paths.get(BasePath + Path + SiteLevel1 + ScreenshotThrough + "_" + SiteLevel2 + ScreenshotThrough + "\\" + SiteLevel2FolderFolders[i].getName() + "\\" + SiteLevel2FolderFolderFiles[k].getName());
+                    // To move file from one directory to another and if same name file exist in directory than it will replace.
+                    Files.copy(Original, Destination, StandardCopyOption.REPLACE_EXISTING);
+                }
             }
-            for (int k = 0 ; k < SiteLevel2FolderFolderFiles.length ; k++){
-                // To construct the path of file.
-                Path Original = Paths.get(BasePath + Path + SiteLevel2 + ScreenshotThrough + "\\" + SiteLevel2FolderFolders[i].getName() + "\\" + SiteLevel2FolderFolderFiles[k].getName());
-                Path Destination = Paths.get(BasePath + Path + SiteLevel1 + ScreenshotThrough + "_" + SiteLevel2 + ScreenshotThrough + "\\" + SiteLevel2FolderFolders[i].getName() + "\\" + SiteLevel2FolderFolderFiles[k].getName());
-                // To move file from one directory to another and if same name file exist in directory than it will replace.
-                Files.copy(Original, Destination, StandardCopyOption.REPLACE_EXISTING);
+        }
+        else if (Structure == "Multiple"){
+            // List browsers of Sitelevel1 folder
+            File[] SiteLevel1Browsers = SiteLevel1Folder.listFiles();
+            // List browsers of Sitelevel2 folder
+            File[] SiteLevel2Browsers = SiteLevel2Folder.listFiles();
+
+            for (int i = 0 ; i < SiteLevel1Browsers.length ; i++) {
+                // Create browser folder in folder of both site level
+                File BrowserDirectory = new File(BasePath + Path + SiteLevel1 + ScreenshotThrough + "_" + SiteLevel2 + ScreenshotThrough + "\\" + SiteLevel1Browsers[i].getName());
+                BrowserDirectory.mkdir();
+
+                // List folders of Sitelevel1 browser folder
+                File[] SiteLevel1BrowserFolders = SiteLevel1Browsers[i].listFiles();
+                File[] SiteLevel2BrowserFolders = SiteLevel2Browsers[i].listFiles();
+
+                for (int j = 0 ; j < SiteLevel1BrowserFolders.length ; j++) {
+                    // Create folder in browser folder of both site level
+                    File ScreenshotDirectory = new File(BasePath + Path + SiteLevel1 + ScreenshotThrough + "_" + SiteLevel2 + ScreenshotThrough + "\\" + SiteLevel1Browsers[i].getName() + "\\" + SiteLevel1BrowserFolders[j].getName());
+                    ScreenshotDirectory.mkdir();
+
+                    // List files of folder in Sitelevel1 folder
+                    File[] SiteLevel1BrowserFolderFiles = SiteLevel1BrowserFolders[j].listFiles();
+                    // List files of folder in Sitelevel2 folder
+                    File[] SiteLevel2BrowserFolderFiles = SiteLevel2BrowserFolders[j].listFiles();
+
+                    for (int k = 0 ; k < SiteLevel1BrowserFolderFiles.length ; k++){
+                        // To construct the path of file.
+                        Path Original = Paths.get(BasePath + Path + SiteLevel1 + ScreenshotThrough + "\\" + SiteLevel1Browsers[i].getName() + "\\" + SiteLevel1BrowserFolders[j].getName() + "\\" + SiteLevel1BrowserFolderFiles[k].getName());
+                        Path Destination = Paths.get(BasePath + Path + SiteLevel1 + ScreenshotThrough + "_" + SiteLevel2 + ScreenshotThrough + "\\" + SiteLevel1Browsers[i].getName() + "\\" + SiteLevel1BrowserFolders[j].getName() + "\\" + SiteLevel1BrowserFolderFiles[k].getName());
+                        // To move file from one directory to another and if same name file exist in directory than it will replace.
+                        Files.copy(Original, Destination, StandardCopyOption.REPLACE_EXISTING);
+                    }
+                    for (int l = 0 ; l < SiteLevel2BrowserFolderFiles.length ; l++){
+                        // To construct the path of file.
+                        Path Original = Paths.get(BasePath + Path + SiteLevel2 + ScreenshotThrough + "\\" + SiteLevel2Browsers[i].getName() + "\\" + SiteLevel2BrowserFolders[j].getName() + "\\" + SiteLevel2BrowserFolderFiles[l].getName());
+                        Path Destination = Paths.get(BasePath + Path + SiteLevel1 + ScreenshotThrough + "_" + SiteLevel2 + ScreenshotThrough + "\\" + SiteLevel2Browsers[i].getName() + "\\" + SiteLevel2BrowserFolders[j].getName() + "\\" + SiteLevel2BrowserFolderFiles[l].getName());
+                        // To move file from one directory to another and if same name file exist in directory than it will replace.
+                        Files.copy(Original, Destination, StandardCopyOption.REPLACE_EXISTING);
+                    }
+                }
             }
         }
     }
