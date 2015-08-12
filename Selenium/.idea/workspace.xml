@@ -2,7 +2,29 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2e9ce220-bd5f-4d31-9bd9-5b85947eec11" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_yaml_snakeyaml_1_8.xml" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/test-classes/Testing/COT/COTFunctions.class" afterPath="$PROJECT_DIR$/target/test-classes/Testing/COT/COTFunctions.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/test-classes/Screenshot/COT_Screens_Firefox.class" afterPath="$PROJECT_DIR$/target/test-classes/Screenshot/COT_Screens_Firefox.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/test-classes/Testing/CommonFunction.class" afterPath="$PROJECT_DIR$/target/test-classes/Testing/CommonFunction.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/test-classes/Selenium/Complete_Screenshot.class" afterPath="$PROJECT_DIR$/target/test-classes/Selenium/Complete_Screenshot.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/test-classes/Selenium/Data_Provider.class" afterPath="$PROJECT_DIR$/target/test-classes/Selenium/Data_Provider.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/test-classes/Selenium/Excel_Drive.class" afterPath="$PROJECT_DIR$/target/test-classes/Selenium/Excel_Drive.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/test-classes/Selenium/Excel_Read_Write.class" afterPath="$PROJECT_DIR$/target/test-classes/Selenium/Excel_Read_Write.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/test-classes/Framework/FieldDriven/ExecuteTest.class" afterPath="$PROJECT_DIR$/target/test-classes/Framework/FieldDriven/ExecuteTest.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/test-classes/Selenium/Grid_Testing.class" afterPath="$PROJECT_DIR$/target/test-classes/Selenium/Grid_Testing.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/test-classes/Testing/HCL/HCLFunctions.class" afterPath="$PROJECT_DIR$/target/test-classes/Testing/HCL/HCLFunctions.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/test-classes/Screenshot/HCL_Screens_Chrome.class" afterPath="$PROJECT_DIR$/target/test-classes/Screenshot/HCL_Screens_Chrome.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/test-classes/Screenshot/HCL_Screens_Compare.class" afterPath="$PROJECT_DIR$/target/test-classes/Screenshot/HCL_Screens_Compare.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/test-classes/Screenshot/HCL_Screens_Safari.class" afterPath="$PROJECT_DIR$/target/test-classes/Screenshot/HCL_Screens_Safari.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/test-classes/Selenium/Headless_Testing.class" afterPath="$PROJECT_DIR$/target/test-classes/Selenium/Headless_Testing.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/test-classes/Screenshot/ScreenshotFilename.class" afterPath="$PROJECT_DIR$/target/test-classes/Screenshot/ScreenshotFilename.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/test-classes/Screenshot/ScreenshotFunctions.class" afterPath="$PROJECT_DIR$/target/test-classes/Screenshot/ScreenshotFunctions.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/test-classes/Screenshot/TakeScreenshot.class" afterPath="$PROJECT_DIR$/target/test-classes/Screenshot/TakeScreenshot.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/test-classes/Framework/FieldDriven/UIOperation.class" afterPath="$PROJECT_DIR$/target/test-classes/Framework/FieldDriven/UIOperation.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/test-classes/Selenium/WebDriver_Testing.class" afterPath="$PROJECT_DIR$/target/test-classes/Selenium/WebDriver_Testing.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/java/Screenshot/ScreenshotFunctions.java" afterPath="$PROJECT_DIR$/src/test/java/Screenshot/ScreenshotFunctions.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/selenium_server_standalone_2_44_0.xml" afterPath="$PROJECT_DIR$/.idea/libraries/selenium_server_standalone_2_44_0.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="Selenium.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -145,6 +167,7 @@
       <sortByType />
     </navigator>
     <panes>
+      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -185,36 +208,9 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Selenium" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Selenium" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="test" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Screenshot" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
         </subPane>
       </pane>
       <pane id="Scope" />
-      <pane id="Scratches" />
       <pane id="PackagesPane" />
     </panes>
   </component>
@@ -962,18 +958,18 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/Screenshot/ScreenshotFunctions.java">
+    <entry file="file://$PROJECT_DIR$/src/test/java/Screenshot/ScreenshotFoldersMerge.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="8.106796">
-          <caret line="354" column="0" selection-start-line="354" selection-start-column="0" selection-end-line="354" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="19" selection-start-line="0" selection-start-column="19" selection-end-line="0" selection-end-column="19" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/Screenshot/ScreenshotFoldersMerge.java">
+    <entry file="file://$PROJECT_DIR$/src/test/java/Screenshot/ScreenshotFunctions.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.1699029">
-          <caret line="7" column="13" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
+        <state vertical-scroll-proportion="8.106796">
+          <caret line="354" column="0" selection-start-line="354" selection-start-column="0" selection-end-line="354" selection-end-column="0" />
           <folding />
         </state>
       </provider>
