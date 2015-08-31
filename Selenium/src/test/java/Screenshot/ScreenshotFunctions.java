@@ -31,7 +31,7 @@ public class ScreenshotFunctions {
     public String BasePath = "C:\\Users\\aman\\Downloads\\";
     private WebDriver driver;
     private WebDriverWait wait;
-    private int timeoutOfOneElement = 300;
+    private int timeoutOfOneElement = 900;
     private int timeoutOFAllElement = 20;
     private String ChromeDriverPath = "C:\\Users\\aman\\Downloads\\Programs\\Selenium\\chromedriver.exe";
     private String IEDriverPath = "C:\\Users\\aman\\Downloads\\Programs\\Selenium\\IEDriverServer.exe";
@@ -156,7 +156,7 @@ public class ScreenshotFunctions {
         String Url = null;
         String GetFilenameUrl[] = new String[2];
 
-        for(int i = 2; i < FilenameUrl.length; i++) {
+        for(int i = 1; i < FilenameUrl.length; i++) {
             for(int j = 0; j < 2; j++) {
                 GetFilenameUrl[j]  = FilenameUrl[i][j];
             }
@@ -166,6 +166,7 @@ public class ScreenshotFunctions {
             // Take snapshot.
             driver.findElement(By.id("screenshots")).clear();
             driver.findElement(By.id("screenshots")).sendKeys(Url);
+            Thread.sleep(4000);
             driver.findElement(By.id("btnSnapshot")).click();
 
             // Driver will wait until text 'ZIPPING' not present at element by id 'zipper'.
@@ -175,6 +176,7 @@ public class ScreenshotFunctions {
             List<WebElement> DownloadLink = driver.findElements(By.xpath("//a[contains(@class, 'icon-sp-dl')]"));
             for (int k = 0; k < DownloadLink.size(); k++) {
                 DownloadLink.get(k).click();
+                Thread.sleep(4000);
             }
 
             // Check download process finish.
@@ -437,6 +439,7 @@ public class ScreenshotFunctions {
             }
         }
     }
+
 
     /**
      * In gallery, images are display in group of two-two according to width in image name. If four or more images have equal width

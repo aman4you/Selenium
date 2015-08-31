@@ -37,7 +37,7 @@ import java.io.IOException;
  */
 public class TakeScreenshot {
     ScreenshotFunctions func;
-    String Structure = "Single";
+    String Structure = "Multiple";
     String Browser = "Firefox";
     String ScreenshotThrough = "Stack";
     String ReadTitleAndUrlFrom = "Excel";
@@ -117,7 +117,7 @@ public class TakeScreenshot {
         int RowNum = ExcelWSheet.getLastRowNum() + 1;
         int ColNum = ExcelWSheet.getRow(0).getLastCellNum();
         String[][] TitleUrl = new String[RowNum][ColNum];
-        for (int i = 2; i < RowNum; i++){
+        for (int i = 1; i < RowNum; i++){
             Row = ExcelWSheet.getRow(i);
             for (int j = 0; j < ColNum; j++) {
                 Cell = Row.getCell(j);
