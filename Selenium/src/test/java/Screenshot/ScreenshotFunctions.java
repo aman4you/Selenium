@@ -28,13 +28,13 @@ import java.util.concurrent.TimeUnit;
 public class ScreenshotFunctions {
     private String Password = "myfriends";
     private String Username = "mukesh.agarwal@innoraft.com";
-    public String BasePath = "C:\\Users\\aman\\Downloads\\";
+    public String BasePath = "C:/Users/aman/Downloads/";
     private WebDriver driver;
     private WebDriverWait wait;
     private int timeoutOfOneElement = 900;
     private int timeoutOFAllElement = 20;
-    private String ChromeDriverPath = "C:\\Users\\aman\\Downloads\\Programs\\Selenium\\chromedriver.exe";
-    private String IEDriverPath = "C:\\Users\\aman\\Downloads\\Programs\\Selenium\\IEDriverServer.exe";
+    private String ChromeDriverPath = "C:/Users/aman/Downloads/Programs/Selenium/chromedriver.exe";
+    private String IEDriverPath = "C:/Users/aman/Downloads/Programs/Selenium/IEDriverServer.exe";
     private int Timeout = 0;
 
     // To run test on Chrome browser
@@ -98,7 +98,7 @@ public class ScreenshotFunctions {
             // Create filename according to screenshot comparision criteria
             String NewFilename = Width + "_" + Filename + "_" + Browser + SiteLevel;
             // Save screenshot
-            FileUtils.copyFile(Screen, new File(BasePath + path + "\\" + Directory + "\\" + NewFilename + ".png"));
+            FileUtils.copyFile(Screen, new File(path + "/" + Directory + "/" + NewFilename + ".png"));
         }
     }
 
@@ -298,7 +298,7 @@ public class ScreenshotFunctions {
             BufferedImage readImage = ImageIO.read(Files[i]);
             int Width = readImage.getWidth();
 
-            Files[i].renameTo(new File(BasePath + Width + "_" + Filename + "_" + SiteLevel + "-" + WindowBrowserVersion[0] + "-" + WindowBrowserVersion[1] + "-" + WindowBrowserVersion[2] + ".png"));
+            Files[i].renameTo(new File(Width + "_" + Filename + "_" + SiteLevel + "-" + WindowBrowserVersion[0] + "-" + WindowBrowserVersion[1] + "-" + WindowBrowserVersion[2] + ".png"));
         }
     }
 
@@ -314,16 +314,16 @@ public class ScreenshotFunctions {
 
         for (int i = 0 ; i < ListOfFiles.length ; i++){
             // To construct the path of file.
-            Path Original = Paths.get(BasePath + ListOfFiles[i].getName());
+            Path Original = Paths.get(ListOfFiles[i].getName());
 
             // Create Directory according to structure.
             if (Structure == "Single") {
-                File Dir2 = new File(BasePath + Path + "\\" + Filename);
+                File Dir2 = new File(Path + "/" + Filename);
                 if (!Dir2.exists()) {
                     Dir2.mkdir();
                 }
 
-                Path Destination = Paths.get(BasePath + Path + "\\" + Filename + "\\" + ListOfFiles[i].getName());
+                Path Destination = Paths.get(Path + "/" + Filename + "/" + ListOfFiles[i].getName());
                 // To move file from one directory to another and if same name file exist in directory than it will replace.
                 Files.move(Original, Destination, StandardCopyOption.REPLACE_EXISTING);
             } else if (Structure == "Multiple") {
@@ -332,17 +332,17 @@ public class ScreenshotFunctions {
                 String[] SplitFilename = FileWithoutExtension.split(SiteLevel + "-");
                 String OS_Browser = SplitFilename[1];
 
-                File Dir2 = new File(BasePath + Path + "\\" + OS_Browser);
+                File Dir2 = new File(Path + "/" + OS_Browser);
                 if (!Dir2.exists()) {
                     Dir2.mkdir();
                 }
 
-                File Dir3 = new File(BasePath + Path + "\\" + OS_Browser + "\\" + Filename);
+                File Dir3 = new File(Path + "/" + OS_Browser + "/" + Filename);
                 if (!Dir3.exists()) {
                     Dir3.mkdir();
                 }
 
-                Path Destination = Paths.get(BasePath + Path + "\\" + OS_Browser + "\\" + Filename + "\\" + ListOfFiles[i].getName());
+                Path Destination = Paths.get(Path + "/" + OS_Browser + "/" + Filename + "/" + ListOfFiles[i].getName());
                 // To move file from one directory to another and if same name file exist in directory than it will replace.
                 Files.move(Original, Destination, StandardCopyOption.REPLACE_EXISTING);
             }
@@ -358,11 +358,11 @@ public class ScreenshotFunctions {
     // To merge two folder into new folder, both folder should have same number of folders with same name.
     public void MergeFolders(String SiteLevel1, String SiteLevel2, String ScreenshotThrough, String Path, String Structure) throws IOException {
         // Create folder for both site level
-        File ScreenshotComparisionDirectory = new File(BasePath + Path + SiteLevel1 + ScreenshotThrough + "_" + SiteLevel2 + ScreenshotThrough);
+        File ScreenshotComparisionDirectory = new File(Path + SiteLevel1 + ScreenshotThrough + "_" + SiteLevel2 + ScreenshotThrough);
         ScreenshotComparisionDirectory.mkdir();
 
-        File SiteLevel1Folder = new File(BasePath + Path + SiteLevel1 + ScreenshotThrough);
-        File SiteLevel2Folder = new File(BasePath + Path + SiteLevel2 + ScreenshotThrough);
+        File SiteLevel1Folder = new File(Path + SiteLevel1 + ScreenshotThrough);
+        File SiteLevel2Folder = new File(Path + SiteLevel2 + ScreenshotThrough);
 
         if (Structure == "Single") {
             // List folders of Sitelevel1 folder
@@ -372,7 +372,7 @@ public class ScreenshotFunctions {
 
             for (int i = 0 ; i < SiteLevel1FolderFolders.length ; i++){
                 // Create folder in folder of both site level
-                File ScreenshotDirectory = new File(BasePath + Path + SiteLevel1 + ScreenshotThrough + "_" + SiteLevel2 + ScreenshotThrough + "\\" + SiteLevel1FolderFolders[i].getName());
+                File ScreenshotDirectory = new File(Path + SiteLevel1 + ScreenshotThrough + "_" + SiteLevel2 + ScreenshotThrough + "/" + SiteLevel1FolderFolders[i].getName());
                 ScreenshotDirectory.mkdir();
 
                 // List files of folder in Sitelevel1 folder
@@ -382,15 +382,15 @@ public class ScreenshotFunctions {
 
                 for (int j = 0 ; j < SiteLevel1FolderFolderFiles.length ; j++){
                     // To construct the path of file.
-                    Path Original = Paths.get(BasePath + Path + SiteLevel1 + ScreenshotThrough + "\\" + SiteLevel1FolderFolders[i].getName() + "\\" + SiteLevel1FolderFolderFiles[j].getName());
-                    Path Destination = Paths.get(BasePath + Path + SiteLevel1 + ScreenshotThrough + "_" + SiteLevel2 + ScreenshotThrough + "\\" + SiteLevel1FolderFolders[i].getName() + "\\" + SiteLevel1FolderFolderFiles[j].getName());
+                    Path Original = Paths.get(Path + SiteLevel1 + ScreenshotThrough + "/" + SiteLevel1FolderFolders[i].getName() + "/" + SiteLevel1FolderFolderFiles[j].getName());
+                    Path Destination = Paths.get(Path + SiteLevel1 + ScreenshotThrough + "_" + SiteLevel2 + ScreenshotThrough + "/" + SiteLevel1FolderFolders[i].getName() + "/" + SiteLevel1FolderFolderFiles[j].getName());
                     // To move file from one directory to another and if same name file exist in directory than it will replace.
                     Files.copy(Original, Destination, StandardCopyOption.REPLACE_EXISTING);
                 }
                 for (int k = 0 ; k < SiteLevel2FolderFolderFiles.length ; k++){
                     // To construct the path of file.
-                    Path Original = Paths.get(BasePath + Path + SiteLevel2 + ScreenshotThrough + "\\" + SiteLevel2FolderFolders[i].getName() + "\\" + SiteLevel2FolderFolderFiles[k].getName());
-                    Path Destination = Paths.get(BasePath + Path + SiteLevel1 + ScreenshotThrough + "_" + SiteLevel2 + ScreenshotThrough + "\\" + SiteLevel2FolderFolders[i].getName() + "\\" + SiteLevel2FolderFolderFiles[k].getName());
+                    Path Original = Paths.get(Path + SiteLevel2 + ScreenshotThrough + "/" + SiteLevel2FolderFolders[i].getName() + "/" + SiteLevel2FolderFolderFiles[k].getName());
+                    Path Destination = Paths.get(Path + SiteLevel1 + ScreenshotThrough + "_" + SiteLevel2 + ScreenshotThrough + "/" + SiteLevel2FolderFolders[i].getName() + "/" + SiteLevel2FolderFolderFiles[k].getName());
                     // To move file from one directory to another and if same name file exist in directory than it will replace.
                     Files.copy(Original, Destination, StandardCopyOption.REPLACE_EXISTING);
                 }
@@ -404,7 +404,7 @@ public class ScreenshotFunctions {
 
             for (int i = 0 ; i < SiteLevel1Browsers.length ; i++) {
                 // Create browser folder in folder of both site level
-                File BrowserDirectory = new File(BasePath + Path + SiteLevel1 + ScreenshotThrough + "_" + SiteLevel2 + ScreenshotThrough + "\\" + SiteLevel1Browsers[i].getName());
+                File BrowserDirectory = new File(Path + SiteLevel1 + ScreenshotThrough + "_" + SiteLevel2 + ScreenshotThrough + "/" + SiteLevel1Browsers[i].getName());
                 BrowserDirectory.mkdir();
 
                 // List folders of Sitelevel1 browser folder
@@ -413,7 +413,7 @@ public class ScreenshotFunctions {
 
                 for (int j = 0 ; j < SiteLevel1BrowserFolders.length ; j++) {
                     // Create folder in browser folder of both site level
-                    File ScreenshotDirectory = new File(BasePath + Path + SiteLevel1 + ScreenshotThrough + "_" + SiteLevel2 + ScreenshotThrough + "\\" + SiteLevel1Browsers[i].getName() + "\\" + SiteLevel1BrowserFolders[j].getName());
+                    File ScreenshotDirectory = new File(Path + SiteLevel1 + ScreenshotThrough + "_" + SiteLevel2 + ScreenshotThrough + "/" + SiteLevel1Browsers[i].getName() + "/" + SiteLevel1BrowserFolders[j].getName());
                     ScreenshotDirectory.mkdir();
 
                     // List files of folder in Sitelevel1 folder
@@ -423,15 +423,15 @@ public class ScreenshotFunctions {
 
                     for (int k = 0 ; k < SiteLevel1BrowserFolderFiles.length ; k++){
                         // To construct the path of file.
-                        Path Original = Paths.get(BasePath + Path + SiteLevel1 + ScreenshotThrough + "\\" + SiteLevel1Browsers[i].getName() + "\\" + SiteLevel1BrowserFolders[j].getName() + "\\" + SiteLevel1BrowserFolderFiles[k].getName());
-                        Path Destination = Paths.get(BasePath + Path + SiteLevel1 + ScreenshotThrough + "_" + SiteLevel2 + ScreenshotThrough + "\\" + SiteLevel1Browsers[i].getName() + "\\" + SiteLevel1BrowserFolders[j].getName() + "\\" + SiteLevel1BrowserFolderFiles[k].getName());
+                        Path Original = Paths.get(Path + SiteLevel1 + ScreenshotThrough + "/" + SiteLevel1Browsers[i].getName() + "/" + SiteLevel1BrowserFolders[j].getName() + "/" + SiteLevel1BrowserFolderFiles[k].getName());
+                        Path Destination = Paths.get(Path + SiteLevel1 + ScreenshotThrough + "_" + SiteLevel2 + ScreenshotThrough + "/" + SiteLevel1Browsers[i].getName() + "/" + SiteLevel1BrowserFolders[j].getName() + "/" + SiteLevel1BrowserFolderFiles[k].getName());
                         // To move file from one directory to another and if same name file exist in directory than it will replace.
                         Files.copy(Original, Destination, StandardCopyOption.REPLACE_EXISTING);
                     }
                     for (int l = 0 ; l < SiteLevel2BrowserFolderFiles.length ; l++){
                         // To construct the path of file.
-                        Path Original = Paths.get(BasePath + Path + SiteLevel2 + ScreenshotThrough + "\\" + SiteLevel2Browsers[i].getName() + "\\" + SiteLevel2BrowserFolders[j].getName() + "\\" + SiteLevel2BrowserFolderFiles[l].getName());
-                        Path Destination = Paths.get(BasePath + Path + SiteLevel1 + ScreenshotThrough + "_" + SiteLevel2 + ScreenshotThrough + "\\" + SiteLevel2Browsers[i].getName() + "\\" + SiteLevel2BrowserFolders[j].getName() + "\\" + SiteLevel2BrowserFolderFiles[l].getName());
+                        Path Original = Paths.get(Path + SiteLevel2 + ScreenshotThrough + "/" + SiteLevel2Browsers[i].getName() + "/" + SiteLevel2BrowserFolders[j].getName() + "/" + SiteLevel2BrowserFolderFiles[l].getName());
+                        Path Destination = Paths.get(Path + SiteLevel1 + ScreenshotThrough + "_" + SiteLevel2 + ScreenshotThrough + "/" + SiteLevel2Browsers[i].getName() + "/" + SiteLevel2BrowserFolders[j].getName() + "/" + SiteLevel2BrowserFolderFiles[l].getName());
                         // To move file from one directory to another and if same name file exist in directory than it will replace.
                         Files.copy(Original, Destination, StandardCopyOption.REPLACE_EXISTING);
                     }
@@ -446,11 +446,11 @@ public class ScreenshotFunctions {
      * in their name than they will not display properly. So, it required to change the width in image name.
      */
     public void ChangeWidth(String SiteLevel1, String SiteLevel2, String ScreenshotThrough, String path) throws IOException {
-        File Folder = new File(BasePath + path + SiteLevel1 + ScreenshotThrough + "_" + SiteLevel2 + ScreenshotThrough);
+        File Folder = new File(path + SiteLevel1 + ScreenshotThrough + "_" + SiteLevel2 + ScreenshotThrough);
         File[] FolderFolders = Folder.listFiles();
 
         for (int i = 0 ; i < FolderFolders.length ; i++) {
-            File FolderFolder = new File(BasePath + path + SiteLevel1 + ScreenshotThrough + "_" + SiteLevel2 + ScreenshotThrough + "\\" + FolderFolders[i].getName());
+            File FolderFolder = new File(path + SiteLevel1 + ScreenshotThrough + "_" + SiteLevel2 + ScreenshotThrough + "/" + FolderFolders[i].getName());
             File[] FolderFolderFiles = FolderFolder.listFiles();
 
             // Reduce folder length because unknown file "thumbs.db" created.
@@ -506,7 +506,7 @@ public class ScreenshotFunctions {
                             int NewWidth = Integer.parseInt(RepeatedWidth.get(k)) + IncreaseWidth;
                             String RenameFile = FolderFolderFiles[m].getName().replace(RepeatedWidth.get(k), String.valueOf(NewWidth));
                             // Rename filename with new width
-                            FolderFolderFiles[m].renameTo(new File(BasePath + path + SiteLevel1 + ScreenshotThrough + "_" + SiteLevel2 + ScreenshotThrough + "\\" + FolderFolders[i].getName() + "\\" + RenameFile));
+                            FolderFolderFiles[m].renameTo(new File(path + SiteLevel1 + ScreenshotThrough + "_" + SiteLevel2 + ScreenshotThrough + "/" + FolderFolders[i].getName() + "/" + RenameFile));
                         }
                     }
                     IncreaseWidth++;
@@ -522,16 +522,16 @@ public class ScreenshotFunctions {
      */
     public void RenameFilesAfterScreenshotComparision(String Path) throws IOException {
         // File object representing the directory on the disk.
-        File Folder = new File(BasePath + Path);
+        File Folder = new File(Path);
         // Returns the array of files of particular extensions.
         File[] List_Folders = Folder.listFiles();
 
         for (int i = 0 ; i < List_Folders.length ; i++) {
-            File Files = new File(BasePath + Path + "\\" + List_Folders[i].getName());
+            File Files = new File(Path + "/" + List_Folders[i].getName());
             File[] List_Files = Files.listFiles();
 
             for (int j = 0 ; j < List_Files.length ; j++) {
-                File Old_Name = new File(BasePath + Path + "\\" + List_Folders[i].getName() + "\\" + List_Files[j].getName());
+                File Old_Name = new File(Path + "/" + List_Folders[i].getName() + "/" + List_Files[j].getName());
                 String FileNameWithOutExt = FilenameUtils.removeExtension(Old_Name.getName());
 
                 if(FileNameWithOutExt.contains("diff")) {
@@ -541,13 +541,13 @@ public class ScreenshotFunctions {
                     String S2 = FilenameUtils.removeExtension(S1);
                     // 8July-win7-firefox-diff
                     String FileNameWithOutSpace = FileNameWithOutExt.replace(" ", "").replace("&", "and").replace(S2, "diff");
-                    Old_Name.renameTo(new File(BasePath + Path + "\\" + List_Folders[i].getName() + "\\" + FileNameWithOutSpace + ".png"));
+                    Old_Name.renameTo(new File(Path + "/" + List_Folders[i].getName() + "/" + FileNameWithOutSpace + ".png"));
                 }
                 if(FileNameWithOutExt.contains("data")) {
                     String S1 = List_Files[j].getName().substring(StringUtils.ordinalIndexOf(List_Files[j].getName(), "_", 2) + 1);
                     String S2 = FilenameUtils.removeExtension(S1);
                     String FileNameWithOutSpace = FileNameWithOutExt.replace(" ", "").replace("&", "and").replace(S2, "data");
-                    Old_Name.renameTo(new File(BasePath + Path + "\\" + List_Folders[i].getName() + "\\" + FileNameWithOutSpace + ".txt"));
+                    Old_Name.renameTo(new File(Path + "/" + List_Folders[i].getName() + "/" + FileNameWithOutSpace + ".txt"));
                 }
             }
         }
